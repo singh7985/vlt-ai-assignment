@@ -54,6 +54,20 @@ def softmax_calibrate(scores: np.ndarray, temperature: float = 0.05) -> np.ndarr
     return np.clip(blended, 0.0, 1.0)
 
 
+def absolute_clip_quality(top_cosine: float,
+                          midpoint: float = 0.22,
+                          steepness: float = 30.0) -> float:
+    """Sigmoid mapping raw CLIP cosine similarity to a quality cap in [0,1].
+
+    Empirically, ViT-B/32 cosine sims for genuine matches sit around 0.25-0.32
+    and noise sits around 0.15-0.20. This sigmoid is anchored at ``midpoint``
+    so a garbage query (top sim ~0.18) is capped near 0.2, while a clean hit
+    (top sim ~0.30) reaches ~0.93. The shape (not specific numbers) is what
+    matters — see ``submission/tests/test_search.py::test_garbage_query_low_conf``.
+    """
+    return float(1.0 / (1.0 + np.exp(-steepness * (top_cosine - midpoint))))
+
+
 # --------------------------------------------------------------------------- #
 # Temporal dedup
 # --------------------------------------------------------------------------- #

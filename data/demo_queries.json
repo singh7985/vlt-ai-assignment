@@ -1,0 +1,11 @@
+{
+  "queries": [
+    { "id": "q1", "text": "a close-up of an animal face", "difficulty": "easy", "category": "object" },
+    { "id": "q2", "text": "outdoor scene with trees and grass", "difficulty": "easy", "category": "scene" },
+    { "id": "q3", "text": "a pink butterfly", "difficulty": "medium", "category": "object" },
+    { "id": "q4", "text": "the title text Big Buck Bunny", "difficulty": "medium", "category": "ocr" },
+    { "id": "q5", "text": "the text GET READY", "difficulty": "medium", "category": "ocr" },
+    { "id": "q6", "text": "the text ONE BIG RABBIT", "difficulty": "hard", "category": "ocr" },
+    { "id": "q7", "text": "a chinchilla or rodent", "difficulty": "medium", "category": "object" }
+  ]
+}

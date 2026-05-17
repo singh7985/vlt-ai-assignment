@@ -41,6 +41,7 @@ from evaluation.interface import VideoSearchInterface, SearchResult  # noqa: E40
 from search import cache as cache_mod  # noqa: E402
 from search.audio import AudioTranscriber, TranscriptIndex  # noqa: E402
 from search.fusion import (  # noqa: E402
+    absolute_clip_quality,
     dedupe_by_time,
     rrf_merge,
     softmax_calibrate,
@@ -345,6 +346,12 @@ class VideoSearch(VideoSearchInterface):
         for ts, _, _ in kept:
             sims_for_kept.append(float(visual_sims[ts_to_idx.get(ts, 0)]))
         conf = softmax_calibrate(np.asarray(sims_for_kept))
+
+        # Cap confidences by the absolute CLIP quality of the best hit so a
+        # garbage query (e.g. "asdfqwerty") returns low confidence even though
+        # softmax always assigns 1.0 to its argmax.
+        quality_cap = absolute_clip_quality(max(sims_for_kept) if sims_for_kept else 0.0)
+        conf = conf * quality_cap
 
         # Bonus for timestamps that also matched audio/OCR (hybrid hits).
         audio_hit_ts = set()
