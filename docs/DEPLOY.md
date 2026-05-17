@@ -16,7 +16,7 @@ The root [`app.py`](../app.py), [`requirements.txt`](../requirements.txt), [`pac
 ```bash
 # from the repo root
 git remote rename origin upstream   # keep the template repo around as 'upstream'
-git remote add origin https://github.com/singh7985/AMAN_SINGH_VOLTAI.git
+git remote add origin https://github.com/singh7985/vlt-ai-assignment.git
 git push -u origin master
 ```
 
@@ -35,7 +35,7 @@ Suggested repo metadata:
    - **SDK:** Gradio · **Gradio version:** `6.0.0` · **Hardware:** CPU basic (free) · **License:** MIT
 2. Push:
    ```bash
-   git remote add hf https://huggingface.co/spaces/<your-hf-username>/AMAN_SINGH_VOLTAI
+   git remote add hf https://huggingface.co/spaces/<your-hf-username>/vlt-ai-assignment
    git push hf master:main
    ```
    Password = an HF access token with **write** scope (<https://huggingface.co/settings/tokens>).

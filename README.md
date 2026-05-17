@@ -13,9 +13,9 @@ short_description: Find any scene in a video using natural language — CLIP + W
 
 # 🎬 Multimodal Video Search
 
-[![CI](https://github.com/singh7985/AMAN_SINGH_VOLTAI/actions/workflows/ci.yml/badge.svg)](https://github.com/singh7985/AMAN_SINGH_VOLTAI/actions/workflows/ci.yml)
+[![CI](https://github.com/singh7985/vlt-ai-assignment/actions/workflows/ci.yml/badge.svg)](https://github.com/singh7985/vlt-ai-assignment/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Live demo on HF Spaces](https://img.shields.io/badge/🤗-Live%20demo-blue)](https://huggingface.co/spaces/<your-hf-username>/AMAN_SINGH_VOLTAI)
+[![Live demo on HF Spaces](https://img.shields.io/badge/🤗-Live%20demo-blue)](https://huggingface.co/spaces/<your-hf-username>/vlt-ai-assignment)
 
 > **Find any scene in a video by describing it in plain English.**
 > Built by **Aman Singh** as an AI/ML Engineer interview submission for **vlt-ai**.
@@ -56,8 +56,8 @@ python -m evaluation.evaluate --submission ./submission \
 
 | Where | Link |
 |---|---|
-| **Live demo** (no install) | https://huggingface.co/spaces/<your-hf-username>/AMAN_SINGH_VOLTAI |
-| **Source code** | https://github.com/singh7985/AMAN_SINGH_VOLTAI |
+| **Live demo** (no install) | https://huggingface.co/spaces/<your-hf-username>/vlt-ai-assignment |
+| **Source code** | https://github.com/singh7985/vlt-ai-assignment |
 | **Walkthrough** | [`submission/README.md`](submission/README.md) |
 | **Eval framework** | [`EVALUATION.md`](EVALUATION.md) |
 | **Original brief** | [`ASSIGNMENT.md`](ASSIGNMENT.md) |
@@ -69,8 +69,8 @@ python -m evaluation.evaluate --submission ./submission \
 ## ⚡ Run locally in 3 commands
 
 ```bash
-git clone https://github.com/singh7985/AMAN_SINGH_VOLTAI.git
-cd AMAN_SINGH_VOLTAI
+git clone https://github.com/singh7985/vlt-ai-assignment.git
+cd vlt-ai-assignment
 pip install -r requirements.txt && python app.py     # → http://localhost:7860
 ```
 
