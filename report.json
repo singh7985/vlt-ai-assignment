@@ -1,0 +1,144 @@
+{
+  "generated_at": "2026-05-17T16:50:11.532815Z",
+  "version": "1.0",
+  "total_score": 0.6707197802165318,
+  "metrics": [
+    {
+      "name": "Precision@K",
+      "score": 0.2,
+      "raw_value": 0.2,
+      "weight": 0.25,
+      "details": {
+        "k": 10,
+        "per_query": {
+          "q1": 0.2,
+          "q2": 0.3,
+          "q3": 0.2,
+          "q4": 0.2,
+          "q5": 0.2,
+          "q6": 0.3,
+          "q7": 0.0
+        }
+      }
+    },
+    {
+      "name": "Recall",
+      "score": 0.8571428571428571,
+      "raw_value": 0.8571428571428571,
+      "weight": 0.25,
+      "details": {
+        "per_query": {
+          "q1": 1.0,
+          "q2": 1.0,
+          "q3": 1.0,
+          "q4": 1.0,
+          "q5": 1.0,
+          "q6": 1.0,
+          "q7": 0.0
+        }
+      }
+    },
+    {
+      "name": "Time-to-First-Result",
+      "score": 0.7857142857142857,
+      "raw_value": 0.7857142857142857,
+      "weight": 0.15,
+      "details": {
+        "per_query": {
+          "q1": 0.6,
+          "q2": 1.0,
+          "q3": 0.9,
+          "q4": 1.0,
+          "q5": 1.0,
+          "q6": 1.0,
+          "q7": 0.0
+        }
+      }
+    },
+    {
+      "name": "Throughput",
+      "score": 1.0,
+      "raw_value": 143.6840584528178,
+      "weight": 0.15,
+      "details": {
+        "fps": 143.6840584528178,
+        "threshold_realtime": 30
+      }
+    },
+    {
+      "name": "Memory Efficiency",
+      "score": 1.0,
+      "raw_value": 210.859375,
+      "weight": 0.1,
+      "details": {
+        "memory_mb": 210.859375,
+        "threshold_excellent": 512
+      }
+    },
+    {
+      "name": "Robustness",
+      "score": 0.38576923073674596,
+      "raw_value": 0.38576923073674596,
+      "weight": 0.1,
+      "details": {
+        "by_difficulty": {
+          "easy": 2,
+          "medium": 4,
+          "hard": 1
+        }
+      }
+    }
+  ],
+  "query_results": {
+    "q1": {
+      "precision": 0.2,
+      "recall": 1.0,
+      "time_to_first_result": 0.6,
+      "num_results": 10,
+      "latency_ms": 1850.9109020233154
+    },
+    "q2": {
+      "precision": 0.3,
+      "recall": 1.0,
+      "time_to_first_result": 1.0,
+      "num_results": 10,
+      "latency_ms": 40.570974349975586
+    },
+    "q3": {
+      "precision": 0.2,
+      "recall": 1.0,
+      "time_to_first_result": 0.9,
+      "num_results": 10,
+      "latency_ms": 24.219989776611328
+    },
+    "q4": {
+      "precision": 0.2,
+      "recall": 1.0,
+      "time_to_first_result": 1.0,
+      "num_results": 10,
+      "latency_ms": 24.016141891479492
+    },
+    "q5": {
+      "precision": 0.2,
+      "recall": 1.0,
+      "time_to_first_result": 1.0,
+      "num_results": 10,
+      "latency_ms": 24.032115936279297
+    },
+    "q6": {
+      "precision": 0.3,
+      "recall": 1.0,
+      "time_to_first_result": 1.0,
+      "num_results": 10,
+      "latency_ms": 23.828983306884766
+    },
+    "q7": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "time_to_first_result": 0.0,
+      "num_results": 10,
+      "latency_ms": 24.03569221496582
+    }
+  },
+  "errors": []
+}
