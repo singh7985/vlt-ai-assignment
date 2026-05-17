@@ -146,13 +146,18 @@ CI runs on every push (see [.github/workflows/ci.yml](.github/workflows/ci.yml))
 .
 ├── app.py                  # Hugging Face Spaces entry point
 ├── requirements.txt        # full deployment deps
+├── packages.txt            # apt deps for HF Spaces (ffmpeg)
+├── LICENSE                 # MIT
 ├── submission/             # actual project — VideoSearch + Gradio UI
 │   ├── main.py             #   VideoSearchInterface implementation
 │   ├── app.py              #   Gradio interface (dark theme, click-to-seek)
 │   ├── search/             #   CLIP, Whisper, OCR, RRF modules
-│   ├── tests/              #   pytest suite
+│   ├── tests/              #   pytest suite (11 tests)
 │   └── README.md           #   deep-dive write-up
 ├── evaluation/             # grading harness (unchanged from brief)
+├── data/                   # demo video + queries + ground truth
+├── docs/                   # screenshot, deployment & API docs
+├── .github/workflows/      # CI (Python 3.11 + 3.12 matrix)
 ├── ASSIGNMENT.md           # original interview brief
 └── EVALUATION.md           # scoring criteria
 ```
@@ -161,4 +166,4 @@ CI runs on every push (see [.github/workflows/ci.yml](.github/workflows/ci.yml))
 
 ## 📜 License
 
-MIT — see [`LICENSE`](LICENSE) if present, otherwise this file constitutes the license grant.
+MIT — see [LICENSE](LICENSE).

@@ -42,6 +42,8 @@ Thumbs.db
 *.mov
 *.avi
 *.mkv
+# ...except the tiny fixture used by the integration test
+!data/smoke.mp4
 /tmp/
 report.json
 report.md
