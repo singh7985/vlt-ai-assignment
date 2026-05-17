@@ -1,232 +1,114 @@
-# AI/ML Engineer Interview Assignment
+---
+title: Multimodal Video Search
+emoji: 🎬
+colorFrom: blue
+colorTo: indigo
+sdk: gradio
+sdk_version: "6.0.0"
+app_file: app.py
+pinned: true
+license: mit
+short_description: Find any scene in a video using natural language — CLIP + Whisper + OCR fused with RRF.
+---
 
-## Multimodal Video Search System
+# 🎬 Multimodal Video Search
 
-Build a web application that finds specific scenes in videos using natural language queries.
+> **Find any scene in a video by describing it in plain English.**
+> Built by **Aman Singh** as an AI/ML Engineer interview submission for **vlt-ai**.
 
-**Example:** Given a video and the query "person wearing a red dress", your system should return timestamps and thumbnails of all scenes containing someone in a red dress.
+Combines three modalities — **CLIP** (visual), **faster-whisper** (speech), and **RapidOCR** (on-screen text) — fused with **Reciprocal Rank Fusion** for calibrated 0–1 confidence scores.
 
 ---
 
-## The Challenge
+## ▶️ Try it live
 
-Create a video search system that:
-1. Accepts a video file
-2. Takes natural language queries from users
-3. Returns relevant video timestamps with confidence scores
-4. Displays results through a web interface
+| Where | Link |
+|---|---|
+| **Live demo** (no install) | https://huggingface.co/spaces/`<your-hf-username>`/multimodal-video-search |
+| **Source code** | https://github.com/`<your-gh-username>`/multimodal-video-search |
+| **Walkthrough** | [`submission/README.md`](submission/README.md) |
+| **Eval framework** | [`EVALUATION.md`](EVALUATION.md) |
+| **Original brief** | [`ASSIGNMENT.md`](ASSIGNMENT.md) |
 
-### What We're Evaluating
-
-| Criteria | Weight | Description |
-|----------|--------|-------------|
-| Search Accuracy | 50% | Precision@K and Recall scores |
-| Performance | 30% | Latency, throughput, memory efficiency |
-| Code Quality | 15% | Architecture, documentation, testing |
-| Innovation | 5% | Creative approaches, UX improvements |
+> Recruiter shortcut: open the live demo → upload any short MP4 (or click an example query) → click a result thumbnail to seek the player.
 
 ---
 
-## Requirements
+## ⚡ Run locally in 3 commands
 
-### Must Have
-- [ ] Implement `VideoSearchInterface` in `submission/main.py`
-- [ ] Provide a working web interface (Gradio template provided)
-- [ ] Handle videos up to 10 minutes in length
-- [ ] Return results within reasonable time (<30s for first result)
+```bash
+git clone https://github.com/<your-gh-username>/multimodal-video-search.git
+cd multimodal-video-search
+pip install -r requirements.txt && python app.py     # → http://localhost:7860
+```
 
-### Should Have
-- [ ] Support common video formats (MP4, MOV, AVI)
-- [ ] Return confidence scores with results
-- [ ] Display thumbnails for matched scenes
-- [ ] Handle edge cases gracefully
+`ffmpeg` is required for audio extraction:
+- macOS: `brew install ffmpeg`
+- Ubuntu: `sudo apt install -y ffmpeg`
 
-### Nice to Have
-- [ ] Real-time search as video loads
-- [ ] Batch query support
-- [ ] Export results to file
-- [ ] Custom UI beyond the template
+Open the URL and:
+1. **Upload** any video (1–10 min works best).
+2. Click **🚀 Load & Index** (≈ 30–60 s on first run, cached after).
+3. Type a query like *"a person wearing a red dress"* or *"someone says thank you"*.
+4. Click any result thumbnail — the player **auto-seeks** to that moment.
 
 ---
 
-## Getting Started
+## 🧠 How it works
 
-### 1. Set Up Your Private Repository
-
-To keep your solution private from other candidates:
-
-```bash
-# Clone this repository
-git clone https://github.com/vlt-ai/ai-interview-assignment.git
-cd ai-interview-assignment
-
-# Create a new PRIVATE repository on your GitHub account
-# (do NOT fork — forks of public repos are public)
-gh repo create ai-interview --private
-
-# Change the remote to point to your private repo
-git remote set-url origin https://github.com/<your-github-username>/ai-interview.git
-
-# Push the assignment to your private repo
-git push -u origin master
+```
+        ┌──────────────┐
+video → │ scene detect │ → keyframes ─┐
+        └──────────────┘              │
+                                      ▼
+        ┌──────────────┐         ┌──────────┐         ┌─────┐
+audio → │   Whisper    │ → text ▶│ CLIP-text│         │     │
+        └──────────────┘         │  encoder │ ──────▶ │ RRF │ ──▶ ranked results
+        ┌──────────────┐         └──────────┘         │     │
+frames→ │  RapidOCR    │ → text ─────────▲            │     │
+        └──────────────┘                 │            └─────┘
+                                  query ─┘
 ```
 
-> **Important:** Do not fork this repository. Forks of public repos are always public, meaning other candidates could see your work. Use the clone-and-push method above instead.
+- **CLIP ViT-B/32** scores each keyframe against the text query.
+- **Whisper** transcripts and **OCR** captions are scored by lexical overlap.
+- **Reciprocal Rank Fusion** merges all three rankings — robust to score scale differences.
+- Confidences are **calibrated to [0, 1]** so the UI's 🟢🟡🔴 dots actually mean something.
 
-### 2. Set Up Environment
+---
 
-```bash
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install evaluation dependencies
-pip install -r requirements.txt
-
-# Install your submission dependencies
-pip install -r submission/requirements.txt
-```
-
-### 2. Get Test Videos
-
-Download any video (1–10 minutes) from the [Internet Archive](https://archive.org/) — it has thousands of free, public domain videos. See [data/README.md](data/README.md) for suggestions.
+## 🧪 Tests & evaluation
 
 ```bash
-# Example: download a video from archive.org
-wget "https://archive.org/download/<video-id>/<filename>.mp4" -O data/test_video.mp4
-```
-
-### 3. Implement Your Solution
-
-Edit `submission/main.py` to implement the `VideoSearch` class:
-
-```python
-from evaluation.interface import VideoSearchInterface, SearchResult
-
-class VideoSearch(VideoSearchInterface):
-    def load_video(self, video_path: str) -> None:
-        # Load and preprocess the video
-        pass
-
-    def search(self, query: str, top_k: int = 10) -> List[SearchResult]:
-        # Find scenes matching the query
-        pass
-
-    def get_processing_stats(self) -> dict:
-        # Return performance statistics
-        pass
-```
-
-### 4. Test Your Solution
-
-```bash
-# Check interface compliance
-python -m evaluation.evaluate --check-interface
-
-# Run evaluation
-python -m evaluation.evaluate \
-    --submission ./submission \
-    --video ./data/test_video.mp4 \
+pytest submission/tests -q                       # 9/9 unit tests
+python -m evaluation.evaluate --check-interface --submission ./submission
+python -m evaluation.evaluate --submission ./submission \
+    --video ./data/your_video.mp4 \
     --queries ./data/sample_queries.json \
-    --ground-truth ./data/ground_truth/sample_labels.json
-
-# Launch web interface
-python -m submission.app
+    --output report.json
 ```
 
 ---
 
-## Submission Structure
+## 📂 Repo layout
 
 ```
-submission/
-├── main.py           # Your VideoSearch implementation (required)
-├── app.py            # Web interface (required, can modify)
-├── requirements.txt  # Your dependencies (required)
-└── README.md         # Your documentation (optional but recommended)
+.
+├── app.py                  # Hugging Face Spaces entry point
+├── requirements.txt        # full deployment deps
+├── submission/             # actual project — VideoSearch + Gradio UI
+│   ├── main.py             #   VideoSearchInterface implementation
+│   ├── app.py              #   Gradio interface (dark theme, click-to-seek)
+│   ├── search/             #   CLIP, Whisper, OCR, RRF modules
+│   ├── tests/              #   pytest suite
+│   └── README.md           #   deep-dive write-up
+├── evaluation/             # grading harness (unchanged from brief)
+├── ASSIGNMENT.md           # original interview brief
+└── EVALUATION.md           # scoring criteria
 ```
 
-You may add additional files and modules as needed.
-
 ---
 
-## Evaluation
+## 📜 License
 
-### Automated Testing
-
-You can run the full evaluation locally:
-
-```bash
-python -m evaluation.evaluate \
-    --submission ./submission \
-    --video ./data/test_video.mp4 \
-    --queries ./data/sample_queries.json \
-    --ground-truth ./data/ground_truth/sample_labels.json
-```
-
-### Metrics
-
-| Metric | Weight | Excellent | Good | Needs Work |
-|--------|--------|-----------|------|------------|
-| Precision@10 | 25% | >0.8 | 0.5-0.8 | <0.5 |
-| Recall | 25% | >0.8 | 0.5-0.8 | <0.5 |
-| Time to First Result | 15% | <2s | 2-10s | >10s |
-| Throughput | 15% | >15 FPS | 5-15 FPS | <5 FPS |
-| Memory | 10% | <1GB | 1-2GB | >2GB |
-| Robustness | 10% | Handles all cases | Minor issues | Crashes |
-
-See [EVALUATION.md](EVALUATION.md) for detailed scoring rubric.
-
----
-
-## Rules
-
-1. **Work independently** - This is an individual assessment
-2. **Use any resources** - Documentation, papers, existing libraries welcome
-3. **Document your approach** - Explain your model choices and trade-offs
-4. **No pre-trained end-to-end solutions** - You must implement the search logic
-5. **Keep it runnable** - Evaluators must be able to run your code
-
----
-
-## Timeline
-
-This is designed as a weekend project (1-2 days of focused work).
-
-**Suggested approach:**
-- Day 1: Set up environment, choose model approach, implement core search
-- Day 2: Optimize performance, handle edge cases, polish UI
-
----
-
-## Resources
-
-- [API Contract Documentation](docs/API_CONTRACT.md)
-- [Getting Started Guide](docs/GETTING_STARTED.md)
-- [Evaluation Details](EVALUATION.md)
-
----
-
-## Submitting Your Work
-
-When you're finished:
-
-1. Ensure all tests pass locally
-2. Push your final code to your **private** repository
-3. Add `vlt-ai` as a collaborator so we can review your work:
-   ```bash
-   gh repo edit --add-collaborator vlt-ai
-   ```
-   Or: repo **Settings** → **Collaborators** → Add **vlt-ai**
-4. Send your repo link to your recruiter
-
----
-
-## Questions?
-
-If you encounter issues:
-1. Check the documentation first
-2. Review the FAQ in [docs/GETTING_STARTED.md](docs/GETTING_STARTED.md)
-3. Contact your recruiter for clarification
-
-Good luck!
+MIT — see [`LICENSE`](LICENSE) if present, otherwise this file constitutes the license grant.

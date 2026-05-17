@@ -1,16 +1,28 @@
-# Candidate Dependencies
-# Add your required packages here
+# =========================================================================
+# Multimodal Video Search — dependencies
+# =========================================================================
+# Core ML
+torch>=2.1.0
+open-clip-torch>=2.24.0          # CLIP (ViT-B-32) — visual+text encoder
+numpy>=1.24.0
+Pillow>=10.0.0
 
-# Web interface (required - you may use alternatives)
+# Video / vision
+opencv-python-headless>=4.8.0
+scenedetect[opencv]>=0.6.3       # adaptive shot-boundary detection
+
+# Audio (optional — VideoSearch degrades gracefully if missing)
+faster-whisper>=1.0.0            # 4x faster Whisper via CTranslate2
+
+# OCR (optional — VideoSearch degrades gracefully if missing)
+rapidocr-onnxruntime>=1.3.0      # lightweight on-screen-text reader
+
+# Web UI
 gradio>=4.0.0
 
-# Video processing (suggested)
-# opencv-python>=4.8.0
-# Pillow>=10.0.0
+# Infra
+psutil>=5.9.0
+tqdm>=4.66.0
 
-# ML frameworks (choose based on your approach)
-# torch>=2.0.0
-# transformers>=4.30.0
-# sentence-transformers>=2.2.0
-
-# Add any additional dependencies your solution requires
+# Dev / tests
+pytest>=7.4.0
