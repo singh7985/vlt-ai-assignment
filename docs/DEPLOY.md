@@ -35,7 +35,7 @@ Suggested repo metadata:
    - **SDK:** Gradio · **Gradio version:** `6.0.0` · **Hardware:** CPU basic (free) · **License:** MIT
 2. Push:
    ```bash
-   git remote add hf https://huggingface.co/spaces/<your-hf-username>/vlt-ai-assignment
+   git remote add hf https://huggingface.co/spaces/aman7985/vlt-ai-assignment
    git push hf master:main
    ```
    Password = an HF access token with **write** scope (<https://huggingface.co/settings/tokens>).

@@ -15,7 +15,7 @@ short_description: Find any scene in a video using natural language — CLIP + W
 
 [![CI](https://github.com/singh7985/vlt-ai-assignment/actions/workflows/ci.yml/badge.svg)](https://github.com/singh7985/vlt-ai-assignment/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Live demo on HF Spaces](https://img.shields.io/badge/🤗-Live%20demo-blue)](https://huggingface.co/spaces/<your-hf-username>/vlt-ai-assignment)
+[![Live demo on HF Spaces](https://img.shields.io/badge/🤗-Live%20demo-blue)](https://huggingface.co/spaces/aman7985/vlt-ai-assignment)
 
 > **Find any scene in a video by describing it in plain English.**
 > Built by **Aman Singh** as an AI/ML Engineer interview submission for **vlt-ai**.
@@ -56,7 +56,7 @@ python -m evaluation.evaluate --submission ./submission \
 
 | Where | Link |
 |---|---|
-| **Live demo** (no install) | https://huggingface.co/spaces/<your-hf-username>/vlt-ai-assignment |
+| **Live demo** (no install) | https://huggingface.co/spaces/aman7985/vlt-ai-assignment |
 | **Source code** | https://github.com/singh7985/vlt-ai-assignment |
 | **Walkthrough** | [`submission/README.md`](submission/README.md) |
 | **Eval framework** | [`EVALUATION.md`](EVALUATION.md) |
