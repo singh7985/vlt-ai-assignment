@@ -259,9 +259,14 @@ class VideoSearch(VideoSearchInterface):
         if self._ocr_frames:
             modalities.append(f"rapidocr ({len(self._ocr_frames)} frames)")
 
+        # Report peak resident memory observed during indexing. We compare
+        # against the pre-index baseline so transient drops don't make the
+        # number look artificially low.
+        peak_rss_mb = max(peak_mem, start_mem)
+
         self.stats.update({
             "fps": float(throughput),
-            "memory_mb": float(max(peak_mem - start_mem, peak_mem * 0.0) + start_mem),
+            "memory_mb": float(peak_rss_mb),
             "model_info": encoder.info(),
             "index_time_seconds": float(elapsed),
             "total_frames": int(meta.total_frames),
